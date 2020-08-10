@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,9 +16,13 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes(['register' => false]);
 
-Route::get('/', function () {
-    return view('news');
+Route::get('/', 'NewsController@index');
+/* Route::get('/isi_post', function(){
+    return view('news.isi_post');
 });
+ */
+
+Route::get('/{slug}', 'NewsController@isi_news')->name('news_isi');
 
 Route::group(['middleware' => 'auth'], function(){
     Route::get('/home', 'HomeController@index')->name('home');
